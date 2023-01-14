@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DATABASE_URL:localhost:5432/caches-api}
+    username: ${DATABASE_USERNAME:caches-api}
+    password: ${DATABASE_PASSWORD:caches-api}
+    driver-class-name: org.postgresql.Driver
+
+  liquibase:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    driver-class-name: ${spring.datasource.driver-class-name}
+    database-change-log-table: liquibase_changelog
+    database-change-log-lock-table: liquibase_changelog_lock
+    change-log: classpath*:/changelog.sql
