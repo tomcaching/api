@@ -13,4 +13,33 @@ class GeocachesService(private val repository: GeocacheRepository) {
         return withContext(Dispatchers.IO) { repository.findAll() }.toList()
     }
 
+    suspend fun createGeocache(
+        title: String,
+        type: String,
+        content: String,
+        latitude: Double,
+        longitude: Double,
+        question: String? = null,
+        solution: String? = null,
+        fakeLatitude: Double? = null,
+        fakeLongitude: Double? = null
+    ) {
+        val geocache = Geocache(
+            id = 0,
+            type = type,
+            title = title,
+            content = content,
+            latitude = latitude,
+            longitude = longitude,
+            fakeLatitude = fakeLatitude,
+            fakeLongitude = fakeLongitude,
+            question = question,
+            solution = solution,
+            locked = (solution != null),
+            found = false,
+        )
+
+        withContext(Dispatchers.IO) { repository.save(geocache) }
+    }
+
 }
