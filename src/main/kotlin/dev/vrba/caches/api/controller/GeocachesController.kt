@@ -1,5 +1,6 @@
 package dev.vrba.caches.api.controller
 
+import dev.vrba.caches.api.domain.Geocache
 import dev.vrba.caches.api.dto.GeocacheDto
 import dev.vrba.caches.api.dto.toDto
 import dev.vrba.caches.api.request.CreateGeocacheRequest
@@ -51,6 +52,13 @@ class GeocachesController(private val service: GeocachesService) {
             request.fakeLatitude,
             request.fakeLongitude
         )
+
+        return listAll()
+    }
+
+    @PostMapping("/delete/{id}")
+    suspend fun deleteGeocache(@PathVariable id: Int): ResponseEntity<List<GeocacheDto>> {
+        service.deleteGeocache(id)
 
         return listAll()
     }

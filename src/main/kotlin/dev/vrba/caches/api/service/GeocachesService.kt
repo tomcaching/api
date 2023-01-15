@@ -71,6 +71,12 @@ class GeocachesService(private val repository: GeocacheRepository) {
         }
     }
 
+    suspend fun deleteGeocache(id: Int) {
+        withContext(Dispatchers.IO) {
+            repository.deleteById(id)
+        }
+    }
+
     private fun validateGeocacheParameters(type: String, question: String?, solution: String?, fakeLatitude: Double?, fakeLongitude: Double?) {
         if (type == "traditional") {
             return
