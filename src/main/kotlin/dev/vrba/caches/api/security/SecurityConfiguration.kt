@@ -44,7 +44,6 @@ class SecurityConfiguration {
 
     @Bean
     fun userDetailsService(configuration: AdminConfiguration, encoder: PasswordEncoder): ReactiveUserDetailsService {
-        println(configuration)
         val user = User.builder()
             .username("admin")
             .password(encoder.encode(configuration.password))
