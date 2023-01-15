@@ -36,4 +36,22 @@ class GeocachesController(private val service: GeocachesService) {
 
         return listAll()
     }
+
+    @PostMapping("/update/{id}")
+    suspend fun createGeocache(@PathVariable id: Int, @Valid @RequestBody request: CreateGeocacheRequest): ResponseEntity<List<GeocacheDto>> {
+        service.updateGeocache(
+            id,
+            request.title,
+            request.type,
+            request.content,
+            request.latitude,
+            request.longitude,
+            request.question,
+            request.solution,
+            request.fakeLatitude,
+            request.fakeLongitude
+        )
+
+        return listAll()
+    }
 }
