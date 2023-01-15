@@ -1,6 +1,5 @@
 package dev.vrba.caches.api.controller
 
-import dev.vrba.caches.api.domain.Geocache
 import dev.vrba.caches.api.dto.GeocacheDetailedDto
 import dev.vrba.caches.api.dto.GeocacheDto
 import dev.vrba.caches.api.dto.toDetailedDto

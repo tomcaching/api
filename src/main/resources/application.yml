@@ -19,3 +19,6 @@ server:
   error:
     include-exception: false
     include-stacktrace: never
+
+admin:
+  password: ${ADMIN_PASSWORD}
