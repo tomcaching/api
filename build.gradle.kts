@@ -49,6 +49,10 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+tasks.getByName<Jar>("jar") {
+    enabled = false
+}
+
 tasks.withType<org.springframework.boot.gradle.tasks.bundling.BootBuildImage> {
     imageName.set("jirkavrba/caches-api:${project.version}")
 }
