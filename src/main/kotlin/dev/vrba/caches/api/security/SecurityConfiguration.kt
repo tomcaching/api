@@ -26,7 +26,7 @@ class SecurityConfiguration {
             authorizeExchange {
                 authorize("/", permitAll)
                 authorize("/api/caches", permitAll)
-                authorize("/api/caches/**", hasRole("ADMIN"))
+                authorize("/api/**", hasRole("ADMIN"))
             }
 
             csrf { disable() }
