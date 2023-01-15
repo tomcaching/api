@@ -3,6 +3,7 @@ package dev.vrba.caches.api.service
 import dev.vrba.caches.api.domain.Geocache
 import dev.vrba.caches.api.exception.GeocacheNotFoundException
 import dev.vrba.caches.api.exception.InvalidGeocacheParametersException
+import dev.vrba.caches.api.exception.InvalidGeocacheSolutionException
 import dev.vrba.caches.api.repository.GeocacheRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -74,6 +75,18 @@ class GeocachesService(private val repository: GeocacheRepository) {
     suspend fun deleteGeocache(id: Int) {
         withContext(Dispatchers.IO) {
             repository.deleteById(id)
+        }
+    }
+
+    suspend fun unlockGeocache(id: Int, solution: String) {
+        withContext(Dispatchers.IO) {
+            val cache = repository.findByIdOrNull(id)
+
+            if (cache == null || cache.type != "mystery" || cache.solution != solution) {
+                throw InvalidGeocacheSolutionException
+            }
+
+            repository.save(cache.copy(locked = false))
         }
     }
 

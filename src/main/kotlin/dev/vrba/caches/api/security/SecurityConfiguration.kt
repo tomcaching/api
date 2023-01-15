@@ -26,6 +26,7 @@ class SecurityConfiguration {
             authorizeExchange {
                 authorize("/", permitAll)
                 authorize("/api/caches", permitAll)
+                authorize("/api/caches/unlock/*", permitAll)
                 authorize("/api/**", hasRole("ADMIN"))
             }
 
