@@ -27,6 +27,7 @@ class SecurityConfiguration {
                 authorize("/", permitAll)
                 authorize("/api/caches", permitAll)
                 authorize("/api/caches/unlock/*", permitAll)
+                authorize("/api/caches/mark-found/*", permitAll)
                 authorize("/api/**", hasRole("ADMIN"))
             }
 

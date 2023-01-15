@@ -30,6 +30,13 @@ class GeocachesController(private val service: GeocachesService) {
         return listAll()
     }
 
+    @PostMapping("/mark-found/{id}")
+    suspend fun markFound(@PathVariable id: Int): ResponseEntity<List<GeocacheDto>> {
+        service.markGeocacheFound(id)
+
+        return listAll()
+    }
+
     @GetMapping("/detailed")
     suspend fun listAllDetailed(): ResponseEntity<List<GeocacheDetailedDto>> {
         return service.findAll()

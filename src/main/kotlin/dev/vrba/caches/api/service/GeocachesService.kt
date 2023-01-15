@@ -90,6 +90,18 @@ class GeocachesService(private val repository: GeocacheRepository) {
         }
     }
 
+    suspend fun markGeocacheFound(id: Int) {
+        withContext(Dispatchers.IO) {
+            val cache = repository.findByIdOrNull(id)
+
+            if (cache == null || cache.locked) {
+                throw InvalidGeocacheSolutionException
+            }
+
+            repository.save(cache.copy(locked = false, found = true))
+        }
+    }
+
     private fun validateGeocacheParameters(type: String, question: String?, solution: String?, fakeLatitude: Double?, fakeLongitude: Double?) {
         if (type == "traditional") {
             return
