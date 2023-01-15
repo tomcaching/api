@@ -1,10 +1,18 @@
 package dev.vrba.caches.api.security
 
+import dev.vrba.caches.api.configuration.AdminConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.config.web.server.invoke
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService
+import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.reactive.CorsWebFilter
@@ -20,7 +28,7 @@ class SecurityConfiguration {
             authorizeExchange {
                 authorize("/", permitAll)
                 authorize("/api/caches", permitAll)
-                authorize("/api/caches/**", authenticated)
+                authorize("/api/caches/**", hasRole("ADMIN"))
             }
 
             csrf { disable() }
@@ -29,6 +37,21 @@ class SecurityConfiguration {
             cors {}
             httpBasic {}
         }
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+
+    @Bean
+    fun userDetailsService(configuration: AdminConfiguration, encoder: PasswordEncoder): ReactiveUserDetailsService {
+        println(configuration)
+        val user = User.builder()
+            .username("admin")
+            .password(encoder.encode(configuration.password))
+            .roles("ADMIN")
+            .build()
+
+        return MapReactiveUserDetailsService(user)
     }
 
     @Bean
