@@ -79,6 +79,13 @@ class GeocachesController(private val service: GeocachesService) {
         return listAllDetailed()
     }
 
+    @PostMapping("/reset/{id}")
+    suspend fun resetGeocache(@PathVariable id: Int): ResponseEntity<List<GeocacheDetailedDto>> {
+        service.resetGeocache(id)
+
+        return listAllDetailed()
+    }
+
     @PostMapping("/delete/{id}")
     suspend fun deleteGeocache(@PathVariable id: Int): ResponseEntity<List<GeocacheDetailedDto>> {
         service.deleteGeocache(id)

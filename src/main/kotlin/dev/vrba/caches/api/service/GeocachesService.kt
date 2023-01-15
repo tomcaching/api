@@ -78,6 +78,18 @@ class GeocachesService(private val repository: GeocacheRepository) {
         }
     }
 
+    suspend fun resetGeocache(id: Int) {
+        withContext(Dispatchers.IO) {
+            val cache = repository.findByIdOrNull(id) ?: throw GeocacheNotFoundException
+            val updated = cache.copy(
+                found = false,
+                locked = cache.type == "mystery"
+            )
+
+            repository.save(updated)
+        }
+    }
+
     suspend fun unlockGeocache(id: Int, solution: String) {
         withContext(Dispatchers.IO) {
             val cache = repository.findByIdOrNull(id)
