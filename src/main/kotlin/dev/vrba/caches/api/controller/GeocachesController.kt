@@ -1,7 +1,9 @@
 package dev.vrba.caches.api.controller
 
 import dev.vrba.caches.api.domain.Geocache
+import dev.vrba.caches.api.dto.GeocacheDetailedDto
 import dev.vrba.caches.api.dto.GeocacheDto
+import dev.vrba.caches.api.dto.toDetailedDto
 import dev.vrba.caches.api.dto.toDto
 import dev.vrba.caches.api.request.CreateGeocacheRequest
 import dev.vrba.caches.api.service.GeocachesService
@@ -21,8 +23,15 @@ class GeocachesController(private val service: GeocachesService) {
             .let { ResponseEntity.ok(it) }
     }
 
+    @GetMapping("/detailed")
+    suspend fun listAllDetailed(): ResponseEntity<List<GeocacheDetailedDto>> {
+        return service.findAll()
+            .map { it.toDetailedDto() }
+            .let { ResponseEntity.ok(it) }
+    }
+
     @PostMapping("/create")
-    suspend fun createGeocache(@Valid @RequestBody request: CreateGeocacheRequest): ResponseEntity<List<GeocacheDto>> {
+    suspend fun createGeocache(@Valid @RequestBody request: CreateGeocacheRequest): ResponseEntity<List<GeocacheDetailedDto>> {
         service.createGeocache(
             request.title,
             request.type,
@@ -35,11 +44,11 @@ class GeocachesController(private val service: GeocachesService) {
             request.fakeLongitude
         )
 
-        return listAll()
+        return listAllDetailed()
     }
 
     @PostMapping("/update/{id}")
-    suspend fun createGeocache(@PathVariable id: Int, @Valid @RequestBody request: CreateGeocacheRequest): ResponseEntity<List<GeocacheDto>> {
+    suspend fun createGeocache(@PathVariable id: Int, @Valid @RequestBody request: CreateGeocacheRequest): ResponseEntity<List<GeocacheDetailedDto>> {
         service.updateGeocache(
             id,
             request.title,
@@ -53,13 +62,13 @@ class GeocachesController(private val service: GeocachesService) {
             request.fakeLongitude
         )
 
-        return listAll()
+        return listAllDetailed()
     }
 
     @PostMapping("/delete/{id}")
-    suspend fun deleteGeocache(@PathVariable id: Int): ResponseEntity<List<GeocacheDto>> {
+    suspend fun deleteGeocache(@PathVariable id: Int): ResponseEntity<List<GeocacheDetailedDto>> {
         service.deleteGeocache(id)
 
-        return listAll()
+        return listAllDetailed()
     }
 }
