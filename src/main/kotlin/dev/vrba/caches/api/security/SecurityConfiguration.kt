@@ -34,8 +34,21 @@ class SecurityConfiguration {
             csrf { disable() }
             formLogin { disable() }
 
-            cors {}
-            httpBasic {}
+            cors {
+                val source = UrlBasedCorsConfigurationSource()
+                val config = CorsConfiguration().apply {
+                    allowCredentials = false
+                    allowedHeaders = listOf("*")
+                    allowedMethods = listOf("*")
+                    allowedOrigins = listOf("*")
+                }
+
+                source.registerCorsConfiguration("/api/**", config)
+
+                configurationSource = source
+            }
+
+            httpBasic { }
         }
     }
 
@@ -51,20 +64,5 @@ class SecurityConfiguration {
             .build()
 
         return MapReactiveUserDetailsService(user)
-    }
-
-    @Bean
-    fun corsFilter(): CorsWebFilter {
-        val source = UrlBasedCorsConfigurationSource()
-        val config = CorsConfiguration().apply {
-            allowCredentials = false
-            allowedHeaders = listOf("*")
-            allowedMethods = listOf("*")
-            allowedOrigins = listOf("*")
-        }
-
-        source.registerCorsConfiguration("/api/**", config)
-
-        return CorsWebFilter(source)
     }
 }
