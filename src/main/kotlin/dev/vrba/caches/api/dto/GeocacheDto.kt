@@ -14,6 +14,7 @@ data class GeocacheDto(
     val found: Boolean,
     val title: String,
     val content: String,
+    val hint: String,
     val coordinates: GeocacheCoordinatesDto,
     val locked: Boolean,
     val question: String?
@@ -24,12 +25,15 @@ fun Geocache.toDto(): GeocacheDto {
         if (locked && fakeLatitude != null && fakeLongitude != null) GeocacheCoordinatesDto(fakeLatitude, fakeLongitude)
         else GeocacheCoordinatesDto(latitude, longitude)
 
+    val hint = if (locked) "Hint se zpřístupní až po vyřešení úkolu" else hint
+
     return GeocacheDto(
         id,
         type,
         found,
         title,
         content,
+        hint,
         coordinates,
         locked,
         question

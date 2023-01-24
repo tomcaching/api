@@ -21,6 +21,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
         title: String,
         type: String,
         content: String,
+        hint: String,
         latitude: Double,
         longitude: Double,
         question: String? = null,
@@ -36,6 +37,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
             type = type,
             title = title,
             content = content,
+            hint = hint,
             latitude = latitude,
             longitude = longitude,
             fakeLatitude = fakeLatitude,
@@ -49,7 +51,19 @@ class GeocachesService(private val repository: GeocacheRepository) {
         withContext(Dispatchers.IO) { repository.save(geocache) }
     }
 
-    suspend fun updateGeocache(id: Int, title: String, type: String, content: String, latitude: Double, longitude: Double, question: String?, solution: String?, fakeLatitude: Double?, fakeLongitude: Double?) {
+    suspend fun updateGeocache(
+        id: Int,
+        title: String,
+        type: String,
+        content: String,
+        hint: String,
+        latitude: Double,
+        longitude: Double,
+        question: String?,
+        solution: String?,
+        fakeLatitude: Double?,
+        fakeLongitude: Double?
+    ) {
         validateGeocacheParameters(type, question, solution, fakeLatitude, fakeLongitude)
 
         withContext(Dispatchers.IO) {
@@ -59,6 +73,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
                 type = type,
                 title = title,
                 content = content,
+                hint = hint,
                 latitude = latitude,
                 longitude = longitude,
                 fakeLatitude = fakeLatitude,
@@ -114,7 +129,13 @@ class GeocachesService(private val repository: GeocacheRepository) {
         }
     }
 
-    private fun validateGeocacheParameters(type: String, question: String?, solution: String?, fakeLatitude: Double?, fakeLongitude: Double?) {
+    private fun validateGeocacheParameters(
+        type: String,
+        question: String?,
+        solution: String?,
+        fakeLatitude: Double?,
+        fakeLongitude: Double?
+    ) {
         if (type == "traditional") {
             return
         }
