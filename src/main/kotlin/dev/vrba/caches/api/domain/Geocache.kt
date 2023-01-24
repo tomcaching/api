@@ -19,6 +19,9 @@ data class Geocache(
     @Column("cache_content")
     val content: String,
 
+    @Column("cache_hint")
+    val hint: String,
+
     @Column("cache_found")
     val found: Boolean,
 

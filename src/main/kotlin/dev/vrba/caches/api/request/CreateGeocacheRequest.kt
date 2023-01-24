@@ -18,6 +18,9 @@ data class CreateGeocacheRequest(
     @field:Pattern(regexp = "^(traditional|mystery)$")
     val type: String,
 
+    @field:NotBlank
+    val hint: String,
+
     val latitude: Double,
     val longitude: Double,
 
