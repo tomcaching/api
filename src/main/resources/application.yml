@@ -1,8 +1,8 @@
 spring:
     datasource:
-        url: jdbc:postgresql://${DATABASE_URL:localhost:5432/caches-api}
-        username: ${DATABASE_USERNAME:caches-api}
-        password: ${DATABASE_PASSWORD:caches-api}
+        url: jdbc:postgresql://${DATABASE_URL:localhost:5432/tomcaching}
+        username: ${DATABASE_USERNAME:tomcaching}
+        password: ${DATABASE_PASSWORD:tomcaching}
         driver-class-name: org.postgresql.Driver
 
     liquibase:
@@ -22,4 +22,4 @@ server:
         include-stacktrace: never
 
 admin:
-    password: ${ADMIN_PASSWORD}
+    password: ${ADMIN_PASSWORD:development-admin-password}
