@@ -31,7 +31,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
     ) {
         validateGeocacheParameters(type, question, solution, fakeLatitude, fakeLongitude)
 
-        val locked = type === "mystery"
+        val locked = type == "mystery"
         val geocache = Geocache(
             id = 0,
             type = type,
