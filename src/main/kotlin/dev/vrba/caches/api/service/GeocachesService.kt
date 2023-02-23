@@ -68,7 +68,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
 
         withContext(Dispatchers.IO) {
             val cache = repository.findByIdOrNull(id) ?: throw GeocacheNotFoundException
-            val locked = type === "mystery"
+            val locked = type == "mystery"
             val updated = cache.copy(
                 type = type,
                 title = title,
