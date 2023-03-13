@@ -13,7 +13,8 @@ data class GeocacheDetailedDto(
     val coordinates: GeocacheCoordinatesDto,
     val fakeCoordinates: GeocacheCoordinatesDto?,
     val question: String?,
-    val solution: String?
+    val solution: String?,
+    val challenge: String?
 )
 
 fun Geocache.toDetailedDto(): GeocacheDetailedDto {
@@ -33,6 +34,7 @@ fun Geocache.toDetailedDto(): GeocacheDetailedDto {
         coordinates,
         fakeCoordinates,
         question,
-        solution
+        solution,
+        challenge
     )
 }

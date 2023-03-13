@@ -26,6 +26,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
         longitude: Double,
         question: String? = null,
         solution: String? = null,
+        challenge: String? = null,
         fakeLatitude: Double? = null,
         fakeLongitude: Double? = null
     ) {
@@ -44,6 +45,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
             fakeLongitude = fakeLongitude,
             question = question,
             solution = solution,
+            challenge = challenge,
             locked = locked,
             found = false,
         )
@@ -61,6 +63,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
         longitude: Double,
         question: String?,
         solution: String?,
+        challenge: String?,
         fakeLatitude: Double?,
         fakeLongitude: Double?
     ) {
@@ -80,6 +83,7 @@ class GeocachesService(private val repository: GeocacheRepository) {
                 fakeLongitude = fakeLongitude,
                 question = question,
                 solution = solution,
+                challenge = challenge,
                 locked = locked
             )
 
