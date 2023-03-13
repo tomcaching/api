@@ -55,6 +55,7 @@ class GeocachesController(private val service: GeocachesService) {
             request.longitude,
             request.question,
             request.solution,
+            request.challenge,
             request.fakeLatitude,
             request.fakeLongitude
         )
@@ -74,6 +75,7 @@ class GeocachesController(private val service: GeocachesService) {
             request.longitude,
             request.question,
             request.solution,
+            request.challenge,
             request.fakeLatitude,
             request.fakeLongitude
         )

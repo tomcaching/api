@@ -20,3 +20,7 @@ create table caches
 --changeset jirkavrba:add-hints-to-caches
 alter table caches
     add column cache_hint varchar(4096) not null default '';
+
+--changeset jirkavrba:add-challenge-urls-to-caches
+alter table caches
+    add column challenge_url varchar(128) null;

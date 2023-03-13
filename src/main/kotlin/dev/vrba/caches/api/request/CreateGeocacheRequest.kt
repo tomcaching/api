@@ -30,6 +30,9 @@ data class CreateGeocacheRequest(
     @field:Length(max = 32)
     val solution: String? = null,
 
+    @field:Length(max = 128)
+    val challenge: String? = null,
+
     val fakeLatitude: Double? = null,
     val fakeLongitude: Double? = null,
 )

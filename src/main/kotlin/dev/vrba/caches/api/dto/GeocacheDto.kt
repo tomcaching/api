@@ -17,7 +17,8 @@ data class GeocacheDto(
     val hint: String,
     val coordinates: GeocacheCoordinatesDto,
     val locked: Boolean,
-    val question: String?
+    val question: String?,
+    val challenge: String?
 )
 
 fun Geocache.toDto(): GeocacheDto {
@@ -36,6 +37,7 @@ fun Geocache.toDto(): GeocacheDto {
         hint,
         coordinates,
         locked,
-        question
+        question,
+        challenge
     )
 }

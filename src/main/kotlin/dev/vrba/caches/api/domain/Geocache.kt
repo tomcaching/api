@@ -34,6 +34,9 @@ data class Geocache(
     @Column("coordinates_longitude")
     val longitude: Double,
 
+    @Column("challenge_url")
+    val challenge: String? = null,
+
     @Column("cache_question")
     val question: String? = null,
 
