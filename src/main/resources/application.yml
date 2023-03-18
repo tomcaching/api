@@ -25,3 +25,9 @@ server:
 
 admin:
     password: ${ADMIN_PASSWORD:development-admin-password}
+
+springdoc:
+    swagger-ui:
+        path: /swagger-ui.html
+    api-docs:
+        path: /openapi
