@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.reactive.CorsWebFilter
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 
 @Configuration
@@ -29,6 +28,11 @@ class SecurityConfiguration {
                 authorize("/api/caches/unlock/*", permitAll)
                 authorize("/api/caches/mark-found/*", permitAll)
                 authorize("/api/**", hasRole("ADMIN"))
+
+                // API Docs
+                authorize("/webjars/swagger-ui/**", permitAll)
+                authorize("/swagger-ui.html", permitAll)
+                authorize("/openapi/**", permitAll)
             }
 
             csrf { disable() }
